@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>NewsFeed</title>
+  <meta name="description" content="Ad-free news from free sources">
+  <meta name="theme-color" content="#faf9f6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="NewsFeed">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="masthead">
+      <h1>NewsFeed</h1>
+      <p id="today" class="today"></p>
+      <button id="refresh" class="icon-btn" type="button" aria-label="Refresh">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.65 6.35A7.96 7.96 0 0 0 12 4a8 8 0 1 0 7.73 10h-2.08A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"/></svg>
+      </button>
+    </div>
+    <nav id="tabs" class="tabs" aria-label="Sections"></nav>
+  </header>
+  <main>
+    <p id="status" class="status" role="status">Loading…</p>
+    <ul id="stories" class="stories"></ul>
+    <p id="sources" class="sources"></p>
+  </main>
+</body>
+</html>

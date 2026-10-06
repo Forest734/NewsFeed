@@ -1,0 +1,5 @@
+node_modules/
+.DS_Store
+__pycache__/
+# Written by `npm run fetch` (and by the Pages workflow on each deploy).
+public/news.json

@@ -1,0 +1,15 @@
+{
+  "name": "newsfeed",
+  "version": "0.1.0",
+  "description": "Ad-free news from free sources: U.S., World, Environment, Science, Coding & AI",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fetch": "node scripts/fetch-news.js",
+    "dev": "python3 scripts/serve.py",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

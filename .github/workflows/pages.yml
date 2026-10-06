@@ -1,0 +1,52 @@
+# Fetches the news and deploys public/ to GitHub Pages: every half hour, on
+# every push to main, and when run by hand from the Actions tab.
+# Needs Settings → Pages → Build and deployment → Source set to "GitHub Actions".
+#
+# The news lives only in the deployed site (public/news.json is never
+# committed), so the repo's history stays just code. If a run fails (tests,
+# or a whole category with no stories), nothing is deployed and the site keeps
+# the last good news.
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  # Times are UTC. GitHub often starts scheduled runs a few minutes late.
+  schedule:
+    - cron: "7,37 * * * *"
+
+permissions:
+  contents: read
+
+# One deployment at a time. A newer run waits instead of cancelling one midway.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - run: npm test
+      - run: npm run fetch
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
