@@ -8,6 +8,9 @@
 // News's is just a "Comments" link). `only` keeps just the stories whose link
 // matches it, for feeds that mix in other sections (the Guardian's world and
 // environment feeds carry its front page too: UK politics, US news, opinion).
+// `skip` drops the stories whose title matches it (LWN's "[$]" stories are
+// for subscribers only in their first week; its daily "Security updates for
+// …" post is a list of distro patches).
 
 export const CATEGORIES = [
   {
@@ -77,6 +80,47 @@ export const CATEGORIES = [
       { name: "Hugging Face", url: "https://huggingface.co/blog/feed.xml" },
       { name: "Stack Overflow Blog", url: "https://stackoverflow.blog/feed/" },
       { name: "Hacker News", url: "https://news.ycombinator.com/rss", summaries: false },
+    ],
+  },
+  {
+    id: "vibe-coding",
+    name: "Vibe Coding",
+    sources: [
+      { name: "Lobsters", url: "https://lobste.rs/t/vibecoding.rss" },
+      { name: "DEV", url: "https://dev.to/feed/tag/vibecoding" }, // ads
+      { name: "Simon Willison", url: "https://simonwillison.net/tags/vibe-coding.atom" },
+      { name: "Hacker News", url: "https://hnrss.org/newest?q=%22vibe+coding%22&points=10", summaries: false },
+    ],
+  },
+  {
+    id: "open-source",
+    name: "Open Source",
+    sources: [
+      { name: "LWN.net", url: "https://lwn.net/headlines/rss", skip: /^\[\$\]|^Security updates for/ },
+      { name: "It's FOSS", url: "https://news.itsfoss.com/rss/" }, // ads
+      { name: "Lobsters", url: "https://lobste.rs/t/release.rss" },
+      { name: "Open Source Initiative", url: "https://opensource.org/feed" },
+      { name: "Linux Foundation", url: "https://www.linuxfoundation.org/blog/rss.xml" },
+      { name: "Apache", url: "https://news.apache.org/feed" },
+      { name: "GitHub Blog", url: "https://github.blog/open-source/feed/" },
+    ],
+  },
+  {
+    id: "gis",
+    name: "GIS",
+    sources: [
+      { name: "Planet OSGeo", url: "https://planet.osgeo.org/rss20.xml" },
+      { name: "QGIS", url: "https://blog.qgis.org/feed/" },
+      { name: "OpenStreetMap", url: "https://blog.openstreetmap.org/feed/" },
+      {
+        name: "NASA Earth Observatory",
+        url: "https://earthobservatory.nasa.gov/feeds/earth-observatory.rss",
+        only: /\/earth\/earth-observatory\//,
+      },
+      { name: "Maps Mania", url: "https://googlemapsmania.blogspot.com/feeds/posts/default" }, // ads
+      { name: "The Map Room", url: "https://www.maproomblog.com/feed/" },
+      { name: "Spatial Source", url: "https://www.spatialsource.com.au/feed" }, // ads
+      { name: "Overture Maps", url: "https://overturemaps.org/feed/" },
     ],
   },
 ];

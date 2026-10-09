@@ -13,7 +13,7 @@ import { mergeStories, parseFeed } from "./feed.js";
 const OUT = new URL("../public/news.json", import.meta.url);
 const USER_AGENT = "NewsFeed/1.0 (personal news reader; +https://github.com/Forest734/NewsFeed)";
 
-async function readFeed({ url, summaries, only }) {
+async function readFeed({ url, summaries, only, skip }) {
   const response = await fetch(url, {
     headers: { "User-Agent": USER_AGENT, Accept: "application/rss+xml, application/atom+xml, application/xml;q=0.9, */*;q=0.8" },
     signal: AbortSignal.timeout(20_000),
@@ -21,6 +21,7 @@ async function readFeed({ url, summaries, only }) {
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   let stories = parseFeed(await response.text(), response.url);
   if (only) stories = stories.filter((story) => only.test(story.link));
+  if (skip) stories = stories.filter((story) => !skip.test(story.title));
   if (summaries === false) for (const story of stories) delete story.summary;
   return stories;
 }

@@ -105,6 +105,14 @@ test("long summaries are shortened at a word", () => {
   assert.match(story.summary, /word…$/);
 });
 
+test("Lobsters' link to its comments isn't a summary", () => {
+  const item = (n, description) =>
+    `<item><title>T${n}</title><link>https://e.org/${n}</link><pubDate>Tue, 06 Oct 2026 09:00:00 GMT</pubDate><description>${description}</description></item>`;
+  const comments = '&lt;p&gt;&lt;a href="https://lobste.rs/s/x/y"&gt;Comments&lt;/a&gt;&lt;/p&gt;';
+  const stories = parseFeed(item(1, comments) + item(2, `&lt;p&gt;We study agents.&lt;/p&gt;\n${comments}`), "https://e.org/");
+  assert.deepEqual(stories.map((s) => s.summary), [undefined, "We study agents."]);
+});
+
 const NOW = Date.parse("2026-10-06T16:00:00Z");
 const HOUR = 60 * 60 * 1000;
 const story = (n, hoursAgo, extra = {}) => ({ title: `Story ${n}`, link: `https://e.org/${n}`, time: NOW - hoursAgo * HOUR, ...extra });

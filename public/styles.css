@@ -27,11 +27,17 @@
 
 * { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+/* Every size below is in rem, so this one line sets the size of all the text
+   (18px at the browser's default 16px; a percentage keeps the phone's own
+   text-size setting working). */
+html {
+  font-size: 112.5%;
+  -webkit-text-size-adjust: 100%;
+}
 
 body {
   margin: 0;
-  font: clamp(15px, 0.85rem + 0.35vw, 18px) / 1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font: 1rem / 1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   color: var(--fg);
   background: var(--bg);
   -webkit-tap-highlight-color: transparent;

@@ -2,8 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-NewsFeed is an ad-free phone news reader: five fixed sections (U.S., World, Environment,
-Science, Coding & AI) built from free RSS/Atom feeds. A static, no-build vanilla-JS PWA in
+NewsFeed is an ad-free phone news reader: eight fixed sections (U.S., World, Environment,
+Science, Coding & AI, Vibe Coding, Open Source, GIS) built from free RSS/Atom feeds. A static, no-build vanilla-JS PWA in
 `public/`, deployed to GitHub Pages by a workflow that also fetches the news every half hour.
 There is no server and no API key. README.md covers the sources, deploy steps and limits.
 
@@ -28,15 +28,19 @@ from the news sites, so screenshots need the network.
 **Data pipeline** (Node, runs in Actions and locally; never in the browser):
 
 - `scripts/sources.js`: `CATEGORIES`, the tabs in order, each `{ id, name, sources }`; a
-  source is `{ name, url, summaries?, only? }`. `id` is the URL hash (`#coding-ai`).
+  source is `{ name, url, summaries?, only?, skip? }`. `id` is the URL hash (`#coding-ai`).
   `summaries: false` drops descriptions that aren't summaries (Hacker News); `only` is a
   RegExp a story's link must match, for feeds that mix in other sections (both Guardian feeds
-  carry its front page). Sites with ads on their own pages are commented `// ads`.
+  carry its front page); `skip` is a RegExp a story's title must not match (LWN's
+  subscriber-only `[$]` stories). Sites with ads on their own pages are commented `// ads`.
+  Reddit was tried for Vibe Coding and dropped: its feeds answer HTTP 429 after a few
+  requests.
 - `scripts/feed.js`: pure. `parseFeed(xml, base)` reads RSS 2.0, RSS 1.0/RDF and Atom with
   regexes (no XML parser on purpose) into `{ title, link, time (ms), summary?, image? }`.
   Everything leaving it is plain text or an http(s) URL; pictures must be https. Summary is
   the first of description/summary/content:encoded/content that survives `cleanSummary`
-  (WordPress "The post … appeared first on", "Continue reading", "Read more on …"), cut to
+  (WordPress "The post … appeared first on", "Continue reading", "Read more on …", Lobsters'
+  trailing "Comments" link), cut to
   ~280 chars. Picture: Media RSS (smallest ≥300 wide, else largest), image enclosure, then the
   first non-1×1 `<img>`. `decode` handles numeric entities, a named table, and accented
   letters as letter + combining mark + NFC. `mergeStories` caps each source at 8, drops

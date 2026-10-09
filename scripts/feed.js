@@ -197,6 +197,7 @@ function cleanSummary(summary, title) {
     .replace(/\s*Continue reading\.*…?$/i, "")
     .replace(/\s*Read more(?: on [^.]*?)?\s*[→»…]?$/i, "")
     .replace(/\s*\[(?:…|\.\.\.)\]$/, "…")
+    .replace(/(?:^|\s+)Comments$/, "") // Lobsters' link to its discussion
     .trim();
   if (!s || s === title) return "";
   return shorten(s, 280);

@@ -8,9 +8,10 @@ Notable changes to NewsFeed. The format follows
 
 ### Added
 
-- NewsFeed: ad-free news in five sections (U.S., World, Environment,
-  Science, Coding & AI) from 31 free feeds, mostly public media and
-  nonprofit newsrooms. No ads, trackers, accounts or API keys.
+- NewsFeed: ad-free news in eight sections (U.S., World, Environment,
+  Science, Coding & AI, Vibe Coding, Open Source, GIS) from 50 free feeds,
+  mostly public media, nonprofit newsrooms and developer communities. No
+  ads, trackers, accounts or API keys.
 - Headlines with source, time, a short summary and a picture; tap to read
   the story on its own site. Stories you've opened turn grey.
 - Up to 8 of each source's stories from the past week per section, so no
@@ -19,3 +20,5 @@ Notable changes to NewsFeed. The format follows
   newer news, and so does coming back to the app after 10 minutes.
 - Installable to the home screen; opens with the last news when offline.
 - Light and dark themes that follow the phone's setting.
+- Large text (18px base) that still grows with the phone's text-size
+  setting.
