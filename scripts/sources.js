@@ -83,6 +83,23 @@ export const CATEGORIES = [
     ],
   },
   {
+    // Anthropic publishes no feeds; the Claude blog and Anthropic Engineering
+    // ones are built from its pages by github.com/Olshansk/rss-feeds (MIT).
+    id: "claude-code",
+    name: "Claude Code",
+    sources: [
+      { name: "Claude Code", url: "https://github.com/anthropics/claude-code/releases.atom" },
+      { name: "Claude Blog", url: "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_claude.xml" },
+      {
+        name: "Anthropic Engineering",
+        url: "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_engineering.xml",
+      },
+      { name: "Simon Willison", url: "https://simonwillison.net/tags/claude-code.atom" },
+      { name: "DEV", url: "https://dev.to/feed/tag/claudecode" }, // ads
+      { name: "Hacker News", url: "https://hnrss.org/newest?q=%22claude+code%22&points=20", summaries: false },
+    ],
+  },
+  {
     id: "vibe-coding",
     name: "Vibe Coding",
     sources: [

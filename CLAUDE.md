@@ -2,9 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-NewsFeed is an ad-free phone news reader: eight fixed sections (U.S., World, Environment,
-Science, Coding & AI, Vibe Coding, Open Source, GIS) built from free RSS/Atom feeds. A static, no-build vanilla-JS PWA in
-`public/`, deployed to GitHub Pages by a workflow that also fetches the news every half hour.
+NewsFeed is an ad-free phone news reader: nine fixed sections (U.S., World, Environment,
+Science, Coding & AI, Claude Code, Vibe Coding, Open Source, GIS) built from free RSS/Atom
+feeds. A static, no-build vanilla-JS PWA in `public/`, deployed to GitHub Pages by a workflow
+that also fetches the news every half hour.
 There is no server and no API key. README.md covers the sources, deploy steps and limits.
 
 ## Commands
@@ -40,10 +41,11 @@ from the news sites, so screenshots need the network.
   Everything leaving it is plain text or an http(s) URL; pictures must be https. Summary is
   the first of description/summary/content:encoded/content that survives `cleanSummary`
   (WordPress "The post … appeared first on", "Continue reading", "Read more on …", Lobsters'
-  trailing "Comments" link), cut to
-  ~280 chars. Picture: Media RSS (smallest ≥300 wide, else largest), image enclosure, then the
-  first non-1×1 `<img>`. `decode` handles numeric entities, a named table, and accented
-  letters as letter + combining mark + NFC. `mergeStories` caps each source at 8, drops
+  trailing "Comments" link, GitHub releases' "What's changed" heading), cut to ~280 chars.
+  Picture: Media RSS (smallest ≥300 wide, else largest; one declared <100 wide is an icon,
+  like GitHub's avatars, and skipped), image enclosure, then the first non-1×1 `<img>`.
+  `decode` handles numeric entities, a named table, and accented letters as letter +
+  combining mark + NFC. `mergeStories` caps each source at 8, drops
   >7 days old, clamps future times to now, dedupes by link and by normalised title, sorts
   newest first, caps at 60, and turns times into ISO strings.
 - `scripts/fetch-news.js`: fetches all feeds in parallel (20 s timeout, identifying

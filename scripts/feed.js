@@ -100,7 +100,10 @@ function itemImage(block, base) {
     const type = attr(tag, "type");
     const medium = attr(tag, "medium");
     if ((type && !type.startsWith("image/")) || (medium && medium !== "image")) continue;
-    media.push({ url: attr(tag, "url"), width: Number(attr(tag, "width")) || 0 });
+    const width = Number(attr(tag, "width")) || 0;
+    // An icon or avatar (GitHub's 30px release thumbnail), not a story picture.
+    if (width && width < 100) continue;
+    media.push({ url: attr(tag, "url"), width });
   }
   // Big enough for a sharp thumbnail on a phone, but no bigger than needed.
   media.sort((a, b) => a.width - b.width);
@@ -198,6 +201,7 @@ function cleanSummary(summary, title) {
     .replace(/\s*Read more(?: on [^.]*?)?\s*[→»…]?$/i, "")
     .replace(/\s*\[(?:…|\.\.\.)\]$/, "…")
     .replace(/(?:^|\s+)Comments$/, "") // Lobsters' link to its discussion
+    .replace(/^What['’]s changed\s+/i, "") // GitHub release notes' heading
     .trim();
   if (!s || s === title) return "";
   return shorten(s, 280);

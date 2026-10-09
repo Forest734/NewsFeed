@@ -8,8 +8,9 @@ Notable changes to NewsFeed. The format follows
 
 ### Added
 
-- NewsFeed: ad-free news in eight sections (U.S., World, Environment,
-  Science, Coding & AI, Vibe Coding, Open Source, GIS) from 50 free feeds,
+- NewsFeed: ad-free news in nine sections (U.S., World, Environment,
+  Science, Coding & AI, Claude Code, Vibe Coding, Open Source, GIS) from
+  56 free feeds,
   mostly public media, nonprofit newsrooms and developer communities. No
   ads, trackers, accounts or API keys.
 - Headlines with source, time, a short summary and a picture; tap to read

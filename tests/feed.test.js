@@ -113,6 +113,22 @@ test("Lobsters' link to its comments isn't a summary", () => {
   assert.deepEqual(stories.map((s) => s.summary), [undefined, "We study agents."]);
 });
 
+test("GitHub releases: no heading in the summary, no avatar as the picture", () => {
+  const [release] = parseFeed(
+    `<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/"><entry>
+      <updated>2026-10-09T19:28:59Z</updated>
+      <link rel="alternate" type="text/html" href="https://github.com/o/r/releases/tag/v2.1.0"/>
+      <title>v2.1.0</title>
+      <content type="html">&lt;h2&gt;What&#39;s changed&lt;/h2&gt;
+&lt;ul&gt;&lt;li&gt;Added &lt;code&gt;--agents&lt;/code&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+      <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/1?s=60&amp;v=4"/>
+    </entry></feed>`,
+    "https://github.com/o/r/releases.atom",
+  );
+  assert.equal(release.summary, "Added --agents");
+  assert.equal(release.image, undefined);
+});
+
 const NOW = Date.parse("2026-10-06T16:00:00Z");
 const HOUR = 60 * 60 * 1000;
 const story = (n, hoursAgo, extra = {}) => ({ title: `Story ${n}`, link: `https://e.org/${n}`, time: NOW - hoursAgo * HOUR, ...extra });
